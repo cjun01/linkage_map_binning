@@ -1,6 +1,6 @@
 # Marker Binning
 
-This is a Python script that performs binning on marker data from a CSV file.
+This is a Python script that performs binning on marker data of linkage map from a CSV file.
 
 ## Requirements
 
