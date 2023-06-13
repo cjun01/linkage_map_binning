@@ -1,6 +1,7 @@
 This is a Python script that performs binning on marker data from a CSV file.
 
 Requirements
+
 This script requires Python 3.6 or later versions, and the following Python packages:
 
 pandas
