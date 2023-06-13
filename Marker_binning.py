@@ -13,10 +13,10 @@ class marker_binning:
         self.map = self.map.sort_values('full_count', ascending=False).drop_duplicates('LG_position').sort_index()
 
         # Add an additional column 'Duplicate_Count' to the DataFrame
-        self.map['Duplicate_Count'] = self.map['LG_position'].map(duplicate_counts)
+        self.map['No_Markers_binned'] = self.map['LG_position'].map(duplicate_counts)
 
         # Fill NaN values in 'Duplicate_Count' with 0
-        self.map['Duplicate_Count'] = self.map['Duplicate_Count'].fillna(0)
+        self.map['No_Markers_binned'] = self.map['Duplicate_Count'].fillna(0)
 
         self.map.to_csv(f"{self.folder}/{self.file}_binned.csv")
 if __name__ == '__main__':
