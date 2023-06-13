@@ -1,27 +1,32 @@
-# linkage_map_binning
+This is a Python script that performs binning on marker data from a CSV file.
 
-# Marker Binning
+Requirements
+This script requires Python 3.6 or later versions, and the following Python packages:
 
-The `marker_binning.py` script performs marker binning on a CSV file containing marker data. It reads the data, performs the binning operation, and saves the binned data as a new CSV file.
+pandas
+argparse
+You can install these packages using pip:
 
-## Usage
+bash
+Copy code
+pip install pandas argparse
+Usage
+You can use this script from the command line by providing the folder path and the file name as arguments:
 
-1. Install the required dependencies:
+bash
+Copy code
+python <script_name>.py --folder <folder_path> --file <file_name>
+<script_name>: The name of this script file.
+<folder_path>: The path of the folder where the CSV file is located.
+<file_name>: The name of the CSV file (do not include '.csv' extension).
+Example usage:
 
-```bash
+bash
+Copy code
+python marker_binning.py --folder ./data --file marker_data
+After the script is run, a new file named <file_name>_binned.csv is created in the same folder as the original file. This file contains the results of the binning operation.
 
-pip install pandas
-2. Download the marker_binning.py script and place it in your project folder.
-
-3. In your Python script, import the marker_binning class:
-
-from marker_binning import marker_binning
-
-4. Create an instance of the marker_binning class:
-binning_instance = marker_binning("data_folder", "data_file.csv")
-
-5. Perform the binning operation:
-binning_instance.binning()
-
-
-This project is licensed under the [MIT License]
+Notes
+The input CSV file should have at least the following columns: 'lg' and 'Position'.
+The script performs binning assuming 'lg' and 'Position' are string data type.
+The script does not handle missing data. Make sure your CSV file does not contain missing values in the 'lg' and 'Position' columns.
