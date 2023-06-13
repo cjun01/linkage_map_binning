@@ -21,7 +21,7 @@ You can use this script from the command line by providing the folder path and t
 python <script_name>.py --folder <folder_path> --file <file_name>
 - <script_name>: The name of this script file.
 - <folder_path>: The path of the folder where the CSV file is located.
-- <file_name>: The name of the CSV file (do not include '.csv' extension).
+- <file_name>: The name of the CSV file.
 
 After the script is run, a new file named <file_name>_binned.csv is created in the same folder as the original file. This file contains the results of the binning operation.
 
