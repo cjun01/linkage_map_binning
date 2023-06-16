@@ -6,7 +6,7 @@ class marker_binning:
     def binning(self):
         map=pd.read_csv(f"{self.folder}/{self.file}", dtype='str')
         map['numeric_part'] = map['SNP'].apply(lambda x: int(re.search(r'_(\d+)$', x).group(1)) if re.search(r'_(\d+)$', x) else -1)
-        map = map.sort_values(['lg', 'numeric_part'])
+        map = map.sort_values(['lg','Position', 'numeric_part'])
         map['LG_position'] = map['lg'].astype(str) + '_' + map['Position'].astype(str)
         duplicates = map['LG_position'].duplicated()
         map['No_Markers_binned'] = duplicates.groupby(map['LG_position']).transform('sum')
