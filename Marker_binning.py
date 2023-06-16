@@ -5,12 +5,13 @@ class marker_binning:
         self.file=file
     def binning(self):
         map=pd.read_csv(f"{self.folder}/{self.file}", dtype='str')
-        map.sort_values(['lg', 'Position', 'SNP'], inplace=True)
+        map['numeric_part'] = map['SNP'].apply(lambda x: int(re.search(r'_(\d+)$', x).group(1)) if re.search(r'_(\d+)$', x) else -1)
+        map = map.sort_values(['lg', 'numeric_part'])
         map['LG_position'] = map['lg'].astype(str) + '_' + map['Position'].astype(str)
         duplicates = map['LG_position'].duplicated()
         map['No_Markers_binned'] = duplicates.groupby(map['LG_position']).transform('sum')
         map.drop_duplicates('LG_position', inplace=True)
-        map.drop('LG_position', axis=1, inplace=True)
+        map.drop(['LG_position', 'numeric_part'], axis=1, inplace=True)
         self.map.to_csv(f"{self.folder}/{self.file}_binned.csv")
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
