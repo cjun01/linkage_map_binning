@@ -5,6 +5,7 @@ class marker_binning:
         self.file=file
     def binning(self):
         map=pd.read_csv(f"{self.folder}/{self.file}", dtype='str')
+        map.sort_values(['lg', 'Position', 'SNP'], inplace=True)
         map['LG_position'] = map['lg'].astype(str) + '_' + map['Position'].astype(str)
         duplicates = map['LG_position'].duplicated()
         map['No_Markers_binned'] = duplicates.groupby(map['LG_position']).transform('sum')
