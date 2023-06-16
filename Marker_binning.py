@@ -1,23 +1,15 @@
 import pandas as pd
 class marker_binning:
     def __init__(self,folder,file):
-        map=pd.read_csv(f"{folder}/{file}", dtype='str')
-
+        self.folder=folder
+        self.file=file
     def binning(self):
-        self.map['full_count'] = self.map.apply(lambda x: x.count(), axis=1)
-        self.map['LG_position'] = self.map['lg'] + '_' + self.map['Position']
-
-        # Count duplicates before dropping
-        duplicate_counts = self.map['LG_position'].value_counts() - 1
-
-        self.map = self.map.sort_values('full_count', ascending=False).drop_duplicates('LG_position').sort_index()
-
-        # Add an additional column 'Duplicate_Count' to the DataFrame
-        self.map['No_Markers_binned'] = self.map['LG_position'].map(duplicate_counts)
-
-        # Fill NaN values in 'Duplicate_Count' with 0
-        self.map['No_Markers_binned'] = self.map['Duplicate_Count'].fillna(0)
-
+        map=pd.read_csv(f"{self.folder}/{self.file}", dtype='str')
+        map['LG_position'] = map['lg'].astype(str) + '_' + map['Position'].astype(str)
+        duplicates = map['LG_position'].duplicated()
+        map['No_Markers_binned'] = duplicates.groupby(map['LG_position']).transform('sum')
+        map.drop_duplicates('LG_position', inplace=True)
+        map.drop('LG_position', axis=1, inplace=True)
         self.map.to_csv(f"{self.folder}/{self.file}_binned.csv")
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
